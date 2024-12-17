@@ -100,7 +100,21 @@ public class SecurityConfig {
                 .tokenSettings(
                         TokenSettings.builder()
                                 .accessTokenTimeToLive(Duration.ofMinutes(10))
-                                .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
+                                .accessTokenFormat(OAuth2TokenFormat.REFERENCE) //change from self-contained to reference just for demo opaque token
+                                .build()
+                )
+                .build();
+
+        RegisteredClient introspectClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("tomresourceserver")
+                .clientSecret("{noop}4cgxI3ywLtMVaBgdUiN1Ou04Cps1AvLx")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .scope(OidcScopes.OPENID)
+                .tokenSettings(
+                        TokenSettings.builder()
+                                .accessTokenTimeToLive(Duration.ofMinutes(10))
+                                .accessTokenFormat(OAuth2TokenFormat.REFERENCE)
                                 .build()
                 )
                 .build();
@@ -143,7 +157,7 @@ public class SecurityConfig {
                 )
                 .build();
 
-        return new InMemoryRegisteredClientRepository(clientCred, authCode, pkce);
+        return new InMemoryRegisteredClientRepository(clientCred, authCode, pkce, introspectClient);
     }
 
     @Bean

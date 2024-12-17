@@ -109,6 +109,7 @@ public class SecurityConfig {
                 .clientId("tomauthorizationcode")
                 .clientSecret("{noop}mUXEGll7IhL2GlPTo1nRoSTcNwaq3QhZ")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST) //send client credentials in body
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC) //config refresh token
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .redirectUri("https://oauth.pstmn.io/v1/callback")
@@ -126,6 +127,7 @@ public class SecurityConfig {
         RegisteredClient pkce = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("tompkce")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .redirectUri("https://oauth.pstmn.io/v1/callback")
